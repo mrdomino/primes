@@ -21,6 +21,8 @@ using std::vector;
 
 template <bool V, typename T, typename F>
 class if_ : public false_type {
+// Compile-time if-statement. If V is true, this subclasses true_type and
+// result is T. Else, this subclasses false_type and result is F.
 public:
   typedef F result;
 };
@@ -32,6 +34,7 @@ public:
 };
 
 constexpr bool is_prime(int n, int i) {
+// Compile-time-available primality test. Uses the naive approach.
   return (i * i > n) ? true :
     (n % i == 0) ? false :
     is_prime(n, i + 1);
@@ -39,6 +42,8 @@ constexpr bool is_prime(int n, int i) {
 
 template <int i, int N>
 class emit_prime {
+// Constructs an object that calls passed functions once for each of the first
+// N primes starting at i.
 public:
   typedef if_<is_prime(i, 2), emit_prime<i + 1, N - 1>,
                               emit_prime<i + 1, N>> check;
