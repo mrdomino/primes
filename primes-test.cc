@@ -22,6 +22,11 @@ TEST(primes, first_few_primes_match) {
   EXPECT_EQ(2, ps->at(0));
   EXPECT_EQ(3, ps->at(1));
   EXPECT_EQ(5, ps->at(2));
+
+  EXPECT_EQ(7, *primes(4)->rbegin());
+  EXPECT_EQ(11, *primes(5)->rbegin());
+  EXPECT_EQ(13, *primes(6)->rbegin());
+  EXPECT_EQ(17, *primes(7)->rbegin());
 }
 
 TEST(primes, 10__is_29) {

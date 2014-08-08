@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <iomanip>
 #include <iostream>
 #include <memory>
@@ -19,14 +20,17 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
   // n primes, then return.
   //
   auto primes = std::make_unique<std::vector<size_t>>(n);
-  // conservative guess here, must have x s.t. pi(x) == n.
-  size_t x = n * n + 2;
+  // We know that
+  //   p_n < n * log(n * log(n))
+  // for n >= 6, that is, for primes >= 13. We allocate at least enough to find
+  // the first 5 primes, growing appropriately from there.
+  size_t x = std::max<size_t>(12, std::max<int>(0, ceil(n * log(n * log(n)))));
   // table of candidate primes; e[i] is true if i is composite.
   auto eliminated = std::vector<bool>(x);
 
   // next prime to add.
   auto nextp = primes->begin();
-  for (size_t i = 2; i < x; ++i) {
+  for (size_t i = 2; i < x && nextp != primes->end(); ++i) {
     if (!eliminated.at(i)) {
       // i has not been eliminated yet; it must be prime.
       *nextp++ = i;
