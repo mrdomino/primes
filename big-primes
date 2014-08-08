@@ -1,0 +1,4 @@
+#!/bin/sh
+rm -f primes-tmpl &&
+  make primes-tmpl CXXFLAGS="-DPRIMES=$@ -ftemplate-depth=100000" &&
+  ./primes-tmpl
