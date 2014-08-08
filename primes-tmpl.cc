@@ -50,7 +50,7 @@ public:
 };
 
 template <int i>
-class emit_prime<i,1> {
+class emit_prime<i,0> {
 public:
   void operator()(function<void(int)> _) { }
 };
