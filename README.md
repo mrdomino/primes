@@ -17,7 +17,7 @@ whole program behaves as expected.
 
 ## Building
 
-To build the whole thing and run tests:
+To build the whole thing, run tests, and see the output:
 
     make
 
@@ -28,6 +28,10 @@ To just build the code:
 To just run the tests:
 
     make test
+
+To just see the output:
+
+    make fc
 
 To clean up:
 
