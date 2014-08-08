@@ -1,11 +1,8 @@
 #ifndef _PRIMES_H_
 #define _PRIMES_H_
 
-#include <algorithm>
 #include <cassert>
 #include <cmath>
-#include <iomanip>
-#include <iostream>
 #include <memory>
 #include <vector>
 
