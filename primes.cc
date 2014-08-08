@@ -1,17 +1,28 @@
-#include <boost/lexical_cast.hpp>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 #include "primes.h"
 #include "print-table.h"
 
-using boost::lexical_cast;
-using boost::bad_lexical_cast;
 using fc::primes;
 using fc::print_table;
 using std::cerr;
 using std::cout;
 using std::endl;
+using std::ios_base;
+using std::istringstream;
+
+template <typename T>
+inline T lexical_cast(char const* c) {
+  istringstream is(c);
+  T ret;
+  is >> ret;
+  if (!is.eof()) {
+    throw ios_base::failure("bad n");
+  }
+  return ret;
+}
 
 void usage(char const* argv0) {
   cout << "usage: " << argv0 << " [n]" << endl
@@ -34,7 +45,7 @@ int main(int argc, char* argv[]) {
     else {
       throw std::runtime_error("Null pointer");
     }
-  } catch(bad_lexical_cast&) {
+  } catch(ios_base::failure&) {
     usage(*argv);
   } catch(std::exception& e) {
     cerr << "Internal error: " << e.what() << endl;
