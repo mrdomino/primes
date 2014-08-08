@@ -1,0 +1,41 @@
+#!/bin/sh
+
+expect_eq() {
+  expected=$1
+  actual=$2
+  if [ ! x"$expected" = x"$actual" ]
+  then
+    echo "Expected:"
+    echo "$1"
+    echo "Actual:"
+    echo "$2"
+    exit 1
+  else
+    echo -n .
+  fi
+}
+
+expect_fail() {
+  $* >/dev/null 2>&1
+  if [ 0 -eq $? ]
+  then
+    echo "Unexpected success: $*"
+  else
+    echo -n .
+  fi
+}
+
+make primes >/dev/null 2>&1
+
+expect_eq 11 $(./primes | wc -l)
+
+expect_eq $'      29      58      87     145     203     319     377     493     551     667     841' "$(./primes | tail -n1)"
+
+expect_eq $'               2       3\n       2       4       6\n       3       6       9' "$(./primes 2)"
+
+expect_fail ./primes 1 2
+
+expect_fail ./primes -1
+
+echo
+echo [  PASSED  ]
