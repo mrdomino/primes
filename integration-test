@@ -25,6 +25,7 @@ expect_fail() {
   fi
 }
 
+echo "Building primes"
 make primes >/dev/null 2>&1
 
 expect_eq 11 $(./primes | wc -l)
@@ -38,4 +39,4 @@ expect_fail ./primes 1 2
 expect_fail ./primes -1
 
 echo
-echo [  PASSED  ]
+echo "[  PASSED  ]"
