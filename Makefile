@@ -1,4 +1,4 @@
-CXXFLAGS=-std=c++1y -pedantic -Wall
+override CXXFLAGS+=-std=c++1y -pedantic -Wall
 TESTFLAGS=-lgtest -lgtest_main
 CXX=g++
 BIN=primes primes-simple primes-tmpl

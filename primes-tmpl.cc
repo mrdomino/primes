@@ -14,6 +14,10 @@ using std::ostream;
 using std::true_type;
 using std::vector;
 
+#ifndef PRIMES
+#define PRIMES 10
+#endif
+
 
 template <bool V, typename T, typename F>
 class if_ : public false_type {
@@ -57,7 +61,7 @@ public:
 
 int main(int argc, char* argv[]) {
   auto ps = vector<int>();
-  emit_prime<2, 10>()([&](int x) { ps.push_back(x); });
+  emit_prime<2, PRIMES>()([&](int x) { ps.push_back(x); });
   print_table(cout, ps);
   return 0;
 }
