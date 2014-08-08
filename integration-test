@@ -9,6 +9,7 @@ expect_eq() {
     echo "$1"
     echo "Actual:"
     echo "$2"
+    echo "[  FAILED  ]"
     exit 1
   else
     echo -n .
@@ -20,6 +21,7 @@ expect_fail() {
   if [ 0 -eq $? ]
   then
     echo "Unexpected success: $*"
+    echo "[  FAILED  ]"
   else
     echo -n .
   fi
