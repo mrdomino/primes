@@ -12,17 +12,19 @@ namespace fc {
 std::unique_ptr<std::vector<size_t>> primes(size_t n) {
   // This is implemented as a basic sieve. We construct a table of candidate
   // primes. Then, for each remaining candidate, we consider it prime and
-  // eliminate all candidates that contain it as a factor. We need a table of
-  // at least size x where pi(x) == n. We iterate through it until we've gotten
-  // n primes, then return.
+  // eliminate all candidates that contain it as a factor. Assuming our table
+  // is big enough, we will find n primes by the time we've finished iterating
+  // through the candidates in this fashion.
+  //
+  // If p_n is the nth prime, our candidate table must contain at least n
+  // entries. We know [0] that for n > 5, p_n < n log(n log(n)). We
+  // deterministically allocate space for up to the 5th prime (11) and rely on
+  // that bound for larger primes.
   //
   auto primes = std::make_unique<std::vector<size_t>>(n);
-  // We know that
-  //   p_n < n * log(n * log(n))
-  // for n >= 6, that is, for primes >= 13. We allocate at least enough to find
-  // the first 5 primes, growing appropriately from there.
+  // Candidate table size.
   size_t x = std::max<size_t>(12, std::max<int>(0, ceil(n * log(n * log(n)))));
-  // table of candidate primes; e[i] is true if i is composite.
+  // table of candidate primes; eliminated[i] is true if i is composite.
   auto eliminated = std::vector<bool>(x);
 
   // next prime to add.
@@ -45,5 +47,8 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
 }
 
 } // namespace fc
+
+// [0] http://functions.wolfram.com/NumberTheoryFunctions/Prime/29/0002/
+//     The nth prime number: Inequalities (formula 13.03.29.0002).
 
 #endif
