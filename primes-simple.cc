@@ -1,6 +1,5 @@
 #include <vector>
 
-#include "primes.h"
 #include "print-table.h"
 
 using namespace fc;

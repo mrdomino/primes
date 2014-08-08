@@ -13,7 +13,7 @@ test: $(TEST)
 	./integration-test
 
 primes: primes.h print-table.h
-primes-simple: primes.h print-table.h
+primes-simple: print-table.h
 primes-tmpl: print-table.h
 
 %: %.cc
