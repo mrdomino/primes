@@ -2,25 +2,25 @@ CXXFLAGS=-std=c++1y -pedantic -Wall
 TESTFLAGS=-lgtest -lgtest_main
 CXX=g++
 BIN=primes primes-simple primes-tmpl
-TEST=primes-test
+TEST=primes-test print-table-test
 
-all: $(BIN) test
+all: build test
+
+build: $(BIN)
 
 test: $(TEST)
-	./$<
+	for x in $^; do ./$$x; done
 	./integration-test
 
-primes: primes.cc primes.h print-table.h
+primes: primes.h print-table.h
+primes-simple: primes.h print-table.h
+primes-tmpl: print-table.h
+
+%: %.cc
 	$(CXX) $(CXXFLAGS) $< -o $@
 
-primes-simple: primes-simple.cc primes.h print-table.h
-	$(CXX) $(CXXFLAGS) $< -o $@
-
-primes-test: primes-test.cc primes.h print-table.h
+%-test: %-test.cc
 	$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
-
-primes-tmpl: primes-tmpl.cc print-table.h
-	$(CXX) $(CXXFLAGS) $< -o $@
 
 clean:
 	-rm $(BIN) $(TEST)
