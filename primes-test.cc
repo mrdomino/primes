@@ -1,4 +1,5 @@
 #include "primes.h"
+#include "print-table.h"
 #include <gtest/gtest.h>
 #include <sstream>
 
