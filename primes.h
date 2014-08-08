@@ -23,7 +23,7 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
   //
   auto primes = std::make_unique<std::vector<size_t>>(n);
   // Candidate table size.
-  size_t x = std::max<size_t>(12, std::max<int>(0, ceil(n * log(n * log(n)))));
+  size_t x = std::max<int>(12, ceil(n * log(n * log(n))));
   // table of candidate primes; eliminated[i] is true if i is composite.
   auto eliminated = std::vector<bool>(x);
 
