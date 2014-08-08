@@ -4,9 +4,16 @@ CXX=g++
 BIN=primes primes-simple primes-tmpl
 TEST=primes-test print-table-test
 
-all: build test
+all: options build test fc
+
+options:
+	@echo build options:
+	@echo "CXXFLAGS  = $(CXXFLAGS)"
+	@echo "TESTFLAGS = $(TESTFLAGS)"
+	@echo "CXX       = $(CXX)"
 
 fc: primes
+	@echo primes
 	@./primes
 
 build: $(BIN)
@@ -22,12 +29,15 @@ primes-simple: print-table.h
 primes-tmpl: print-table.h
 
 %: %.cc
-	$(CXX) $(CXXFLAGS) $< -o $@
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $< -o $@
 
 %-test: %-test.cc
-	$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
 
 clean:
-	-rm $(BIN) $(TEST)
+	@echo cleaning
+	@rm -f $(BIN) $(TEST)
 
-.PHONY: all build clean fc test
+.PHONY: all build clean fc options test
