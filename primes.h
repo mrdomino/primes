@@ -10,18 +10,30 @@
 
 namespace fc {
 
+/// Returns a vector containing the first n primes.
 std::unique_ptr<std::vector<size_t>> primes(size_t n) {
+  // This is implemented as a basic sieve. We construct a table of candidate
+  // primes. Then, for each remaining candidate, we consider it prime and
+  // eliminate all candidates that contain it as a factor. We need a table of
+  // at least size x where pi(x) == n. We iterate through it until we've gotten
+  // n primes, then return.
+  //
   auto primes = std::make_unique<std::vector<size_t>>(n);
-  size_t x = n * n + 2; // conservative guess, must have x s.t. pi(x) == n.
+  // conservative guess here, must have x s.t. pi(x) == n.
+  size_t x = n * n + 2;
+  // table of candidate primes; e[i] is true if i is composite.
   auto eliminated = std::vector<bool>(x);
 
+  // next prime to add.
   auto nextp = primes->begin();
   for (size_t i = 2; i < x; ++i) {
     if (!eliminated.at(i)) {
+      // i has not been eliminated yet; it must be prime.
       *nextp++ = i;
       if (nextp == primes->end()) {
         break;
       }
+      // eliminate all factors of i in the table.
       for (size_t j = 1; j * i < x; ++j) {
         eliminated.at(j * i) = true;
       }
@@ -31,6 +43,10 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
   return primes;
 }
 
+/// Print a multiplication table over the contents of v.
+///
+/// Prints elements of v along the first row and column, with each cell
+/// containing the product for the corresponding row and column.
 template <typename T>
 void print_table(std::ostream& os, std::vector<T> const& v) {
   const size_t wid = 8;
