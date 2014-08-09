@@ -1,8 +1,7 @@
-#include <vector>
+#include <algorithm>
+#include <iomanip>
+#include <iostream>
 
-#include "print-table.h"
-
-using namespace fc;
 using namespace std;
 
 static const size_t first_10_primes[] = {
@@ -10,7 +9,20 @@ static const size_t first_10_primes[] = {
 };
 
 int main(int argc, char* argv[]) {
-  auto x = vector<size_t>(begin(first_10_primes), end(first_10_primes));
-  print_table(cout, x, 4);
+  cout << setw(4) << "";
+  for_each(begin(first_10_primes), end(first_10_primes),
+      [](size_t p) {
+        cout << setw(4) << p;
+      });
+  cout << endl;
+  for_each(begin(first_10_primes), end(first_10_primes),
+      [](size_t p) {
+        cout << setw(4) << p;
+        for_each(begin(first_10_primes), end(first_10_primes),
+            [p](size_t q) {
+              cout << setw(4) << p * q;
+            });
+        cout << endl;
+      });
   return 0;
 }

@@ -37,8 +37,6 @@ primes-tmpl: primes-tmpl.cc
 	@$(CXX) $(CXXFLAGS) $< -o $@
 
 primes: primes.h print-table.h
-primes-simple: print-table.h
-primes-tmpl: print-table.h
 
 primes-test: primes-test.cc primes.h
 	@echo CXX $<
