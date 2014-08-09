@@ -2,14 +2,17 @@
 #define _PRINT_TABLE_H_
 
 #include <algorithm>
-#include <cmath>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 
 namespace fc {
 
-size_t width_of(size_t n) {
-  return 1 + std::max<int>(0, floor(log10(n)));
+template <typename T>
+size_t width_of(T const& n) {
+  std::ostringstream os;
+  os << n;
+  return os.str().size();
 }
 
 /// Print a multiplication table over the contents of v.
