@@ -1,30 +1,24 @@
-// Template metaprogramming prime generation function.
+// Template metaprogramming prime multiplication table generator.
 //
-// This is provided merely as a proof of concept for generating primes at
-// compile-time. It would be unwise to actually use it for anything. In
-// particular, it doesn't have any better asymptotic performance than runtime
-// prime generation, since the O(n^2) multiplications required to display the
-// table dominate performance anyway.
+// This is provided as a proof of concept only, and is obviously silly.
 //
 // CAUTION: compiling this with large values for PRIMES will use
 // lots of memory and CPU. On my system with g++ 4.9.1, the
-// compilation took several minutes and used 14GB of virtual
-// memory for only 2000 primes.
+// compilation took several minutes and used several gigabytes of virtual
+// memory memory for 200 primes.
 //
+#include <iomanip>
 #include <iostream>
 #include <functional>
 #include <type_traits>
 #include <vector>
 
-#include "print-table.h"
-
-using fc::print_table;
-using fc::width_of;
 using std::cout;
 using std::endl;
 using std::function;
 using std::false_type;
 using std::ostream;
+using std::setw;
 using std::true_type;
 using std::vector;
 
@@ -54,33 +48,105 @@ constexpr bool is_prime(int n, int i) {
     is_prime(n, i + 1);
 }
 
-template <int i, int N>
-class emit_prime {
-// Constructs an object that calls passed functions once for each of the first
-// N primes starting at i.
+template <int i,int N>
+class prime {
 public:
-  typedef if_<is_prime(i, 2), emit_prime<i + 1, N - 1>,
-                              emit_prime<i + 1, N>> check;
-  check i_is_prime;
-  typename check::result a;
-
-  void operator()(function<void(int)> f) {
-    if (i_is_prime) {
-      f(i);
-    }
-    a(f);
+  typedef if_<is_prime(i,2), prime<i + 1, N - 1>,
+                             prime<i + 1, N>> check;
+  static constexpr int value() {
+    return check::result::value();
   }
 };
 
 template <int i>
-class emit_prime<i,0> {
+class prime<i,0> {
 public:
-  void operator()(function<void(int)> _) { }
+  static constexpr int value() {
+    return i - 1;
+  }
 };
 
+template <int i, int N, int wid>
+class print_header {
+public:
+  typedef if_<is_prime(i,2), print_header<i + 1, N - 1, wid>,
+                             print_header<i + 1, N, wid>> check;
+  static inline void go() {
+    if (check::value) {
+      cout << setw(wid) << i;
+    }
+    check::result::go();
+  }
+};
+
+template <int i, int wid>
+class print_header<i,0, wid> {
+public:
+  static inline void go() { }
+};
+
+template <int p, int i, int N, int wid>
+class print_col {
+public:
+  typedef if_<is_prime(i,2), print_col<p, i+1, N-1, wid>,
+                             print_col<p, i+1, N, wid>> check;
+  static inline void go() {
+    if (check::value) {
+      cout << setw(wid) << p * i;
+    }
+    check::result::go();
+  }
+};
+
+template <int p, int i, int wid>
+class print_col<p,i,0,wid> {
+public:
+  static inline void go() { }
+};
+
+template <int i, int N, int M, int wid>
+class print_row {
+public:
+  typedef if_<is_prime(i,2), print_row<i + 1, N - 1, M, wid>,
+                             print_row<i + 1, N, M, wid>> check;
+  static inline void go() {
+    if (check::value) {
+      cout << setw(wid) << i;
+      print_col<i,2,M,wid>::go();
+      cout << endl;
+    }
+    check::result::go();
+  }
+};
+
+template <int i, int M, int wid>
+class print_row<i,0, M, wid> {
+public:
+  static inline void go() { }
+};
+
+template <int N, int wid>
+class print_table {
+public:
+  print_table() {
+    if (N) {
+      cout << setw(wid) << "";
+    }
+    print_header<2,N,wid>::go();
+    cout << endl;
+    print_row<2,N,N,wid>::go();
+  }
+};
+
+constexpr int width_of(int x) {
+  return (x / 10) ? 1 + width_of(x / 10) : 1;
+}
+
+constexpr int square(int x) {
+  return x * x;
+}
+
 int main(int argc, char* argv[]) {
-  auto ps = vector<int>();
-  emit_prime<2, PRIMES>()([&](int x) { ps.push_back(x); });
-  print_table(cout, ps, 1 + width_of(*ps.rbegin() * *ps.rbegin()));
+  print_table<PRIMES, 1 + width_of(square(prime<2,PRIMES>::value()))>();
   return 0;
 }
