@@ -1,3 +1,16 @@
+// Template metaprogramming prime generation function.
+//
+// This is provided merely as a proof of concept for generating primes at
+// compile-time. It would be unwise to actually use it for anything. In
+// particular, it doesn't have any better asymptotic performance than runtime
+// prime generation, since the O(n^2) multiplications required to display the
+// table dominate performance anyway.
+//
+// CAUTION: compiling this with large values for PRIMES will use
+// lots of memory and CPU. On my system with g++ 4.9.1, the
+// compilation took several minutes and used 14GB of virtual
+// memory for only 2000 primes.
+//
 #include <iostream>
 #include <functional>
 #include <type_traits>
