@@ -18,7 +18,8 @@ size_t width_of(T const& n) {
 /// Print a multiplication table over the contents of v.
 ///
 /// Prints elements of v along the first row and column, with each cell
-/// containing the product for the corresponding row and column.
+/// containing the product for the corresponding row and column. wid, if
+/// specified, gives the width of each column.
 template <typename T>
 void print_table(std::ostream& os, std::vector<T> const& v, size_t wid=8) {
   // To print a multiplication table of n items requires O(n^2)
