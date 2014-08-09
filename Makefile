@@ -1,4 +1,4 @@
-override CXXFLAGS+=-std=c++1y -pedantic -Wall
+CXXFLAGS=-std=c++1y -pedantic -Wall
 TESTFLAGS=-lgtest -lgtest_main
 CXX=g++
 BIN=primes primes-simple primes-tmpl
@@ -20,19 +20,31 @@ build: $(BIN)
 
 test: $(TEST)
 	@echo Running unit tests
-	@for x in $^; do ./$$x; done
+	@for x in $(TEST); do ./$$x; done
 	@echo Running integration test
 	@./integration-test
+
+primes: primes.cc
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $< -o $@
+
+primes-simple: primes-simple.cc
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $< -o $@
+
+primes-tmpl: primes-tmpl.cc
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $< -o $@
 
 primes: primes.h print-table.h
 primes-simple: print-table.h
 primes-tmpl: print-table.h
 
-%: %.cc
+primes-test: primes-test.cc primes.h
 	@echo CXX $<
-	@$(CXX) $(CXXFLAGS) $< -o $@
+	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
 
-%-test: %-test.cc %.h
+print-table-test: print-table-test.cc print-table.h
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
 
