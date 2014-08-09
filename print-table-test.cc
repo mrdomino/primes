@@ -38,6 +38,32 @@ TEST(print_table, multiplies_and_formats_elements) {
       ss.str());
 }
 
+TEST(print_table, variable_width) {
+  std::stringstream ss;
+  auto v = std::vector<int>(1);
+
+  print_table(ss, v, 2);
+  EXPECT_EQ(
+      "   0\n"
+      " 0 0\n",
+      ss.str());
+
+  ss.str("");
+  print_table(ss, v, 0);
+  EXPECT_EQ(
+      "0\n"
+      "00\n",
+      ss.str());
+
+  ss.str("");
+
+  print_table(ss, v, 3);
+  EXPECT_EQ(
+      "     0\n"
+      "  0  0\n",
+      ss.str());
+}
+
 } // namespace
 
 } // namespace fc
