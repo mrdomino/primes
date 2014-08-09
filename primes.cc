@@ -19,7 +19,7 @@ inline T lexical_cast(char const* c) {
   istringstream is(c);
   T ret;
   is >> ret;
-  if (!is.eof()) {
+  if (!is.eof() || is.fail()) {
     throw ios_base::failure("bad n");
   }
   return ret;
