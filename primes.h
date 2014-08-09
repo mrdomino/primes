@@ -16,7 +16,7 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
   // is big enough, we will find n primes by the time we've finished iterating
   // through the candidates in this fashion.
   //
-  // If p_n is the nth prime, our candidate table must contain at least n
+  // If p_n is the nth prime, our candidate table must contain at least p_n
   // entries. We know [0] that for n > 5, p_n < n log(n log(n)). We
   // deterministically allocate space for up to the 5th prime (11) and rely on
   // that bound for larger primes.
