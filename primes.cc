@@ -46,7 +46,8 @@ int main(int argc, char* argv[]) {
       : lexical_cast<size_t>(argv[1]);
     auto ps = primes(n);
     if (ps) {
-      print_table(cout, *ps, 1 + width_of(square(*ps->rbegin())));
+      auto col_width = 1 + width_of(square(*ps->rbegin()));
+      print_table(cout, *ps, col_width);
     }
     else {
       throw std::runtime_error("Null pointer");
