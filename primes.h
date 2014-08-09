@@ -21,6 +21,9 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
   // deterministically allocate space for up to the 5th prime (11) and rely on
   // that bound for larger primes.
   //
+  // Assuming the bound on x is tight (i.e. x is the nth prime), this routine
+  // is O(x) = O(n log(n log n)).
+  //
   auto primes = std::make_unique<std::vector<size_t>>(n);
   // Candidate table size.
   size_t x = std::max<int>(12, ceil(n * log(n * log(n))));
@@ -36,9 +39,12 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
       if (nextp == primes->end()) {
         break;
       }
-      // eliminate all factors of i in the table.
-      for (size_t j = 1; j * i < x; ++j) {
-        eliminated.at(j * i) = true;
+      // only eliminate factors up to sqrt(x).
+      if (i * i < x) {
+        // eliminate all factors of i in the table.
+        for (size_t j = 1; j * i < x; ++j) {
+          eliminated.at(j * i) = true;
+        }
       }
     }
   }
