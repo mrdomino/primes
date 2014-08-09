@@ -7,6 +7,7 @@
 
 using fc::primes;
 using fc::print_table;
+using fc::width_of;
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -22,6 +23,11 @@ inline T lexical_cast(char const* c) {
     throw ios_base::failure("bad n");
   }
   return ret;
+}
+
+template <typename T>
+inline T square(T const& x) {
+  return x * x;
 }
 
 void usage(char const* argv0) {
@@ -40,7 +46,7 @@ int main(int argc, char* argv[]) {
       : lexical_cast<size_t>(argv[1]);
     auto ps = primes(n);
     if (ps) {
-      print_table(cout, *ps);
+      print_table(cout, *ps, 1 + width_of(square(*ps->rbegin())));
     }
     else {
       throw std::runtime_error("Null pointer");

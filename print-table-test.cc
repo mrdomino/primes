@@ -64,6 +64,19 @@ TEST(print_table, variable_width) {
       ss.str());
 }
 
+TEST(width_of, 0_is_1) {
+  EXPECT_EQ(1, width_of(0));
+}
+
+TEST(width_of, n_is_digits_in_n) {
+  EXPECT_EQ(2, width_of(10));
+  EXPECT_EQ(2, width_of(19));
+
+  EXPECT_EQ(4, width_of(1234));
+  EXPECT_EQ(5, width_of(10000));
+  EXPECT_EQ(10, width_of(1999999999));
+}
+
 } // namespace
 
 } // namespace fc

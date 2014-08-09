@@ -19,6 +19,7 @@
 #include "print-table.h"
 
 using fc::print_table;
+using fc::width_of;
 using std::cout;
 using std::endl;
 using std::function;
@@ -80,6 +81,6 @@ public:
 int main(int argc, char* argv[]) {
   auto ps = vector<int>();
   emit_prime<2, PRIMES>()([&](int x) { ps.push_back(x); });
-  print_table(cout, ps);
+  print_table(cout, ps, 1 + width_of(*ps.rbegin() * *ps.rbegin()));
   return 0;
 }

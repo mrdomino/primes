@@ -2,10 +2,15 @@
 #define _PRINT_TABLE_H_
 
 #include <algorithm>
+#include <cmath>
 #include <iomanip>
 #include <iostream>
 
 namespace fc {
+
+size_t width_of(size_t n) {
+  return 1 + std::max<int>(0, floor(log10(n)));
+}
 
 /// Print a multiplication table over the contents of v.
 ///

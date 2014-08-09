@@ -11,6 +11,6 @@ static const size_t first_10_primes[] = {
 
 int main(int argc, char* argv[]) {
   auto x = vector<size_t>(begin(first_10_primes), end(first_10_primes));
-  print_table(cout, x);
+  print_table(cout, x, 4);
   return 0;
 }
