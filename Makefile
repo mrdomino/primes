@@ -32,7 +32,7 @@ primes-tmpl: print-table.h
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $< -o $@
 
-%-test: %-test.cc
+%-test: %-test.cc %.h
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
 
