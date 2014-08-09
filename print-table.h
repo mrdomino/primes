@@ -13,6 +13,12 @@ namespace fc {
 /// containing the product for the corresponding row and column.
 template <typename T>
 void print_table(std::ostream& os, std::vector<T> const& v) {
+  // To print a multiplication table of n items requires O(n^2)
+  // multiplies. We can reduce this by a constant factor of 1/2 by only
+  // doing the upper triangle of multiplications and reusing it for the
+  // lower triangle, but this doesn't change the asymptotic performance,
+  // so we don't do it in order to save the code complexity.
+  //
   const size_t wid = 8;
   if (!v.empty()) {
     os << std::setw(wid) << "";
