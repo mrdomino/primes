@@ -50,6 +50,7 @@ constexpr bool is_prime(int n, int i) {
 
 template <int i,int N>
 class prime {
+// Gives the Nth prime starting from i.
 public:
   typedef if_<is_prime(i,2), prime<i + 1, N - 1>,
                              prime<i + 1, N>> check;
@@ -68,6 +69,7 @@ public:
 
 template <int i, int N, int wid>
 class print_header {
+// Prints a list of N primes starting at i in wid-sized columns.
 public:
   typedef if_<is_prime(i,2), print_header<i + 1, N - 1, wid>,
                              print_header<i + 1, N, wid>> check;
@@ -87,6 +89,7 @@ public:
 
 template <int p, int i, int N, int wid>
 class print_col {
+// Prints a single wid-sized column of p * the Nth prime starting from i.
 public:
   typedef if_<is_prime(i,2), print_col<p, i+1, N-1, wid>,
                              print_col<p, i+1, N, wid>> check;
@@ -106,6 +109,7 @@ public:
 
 template <int i, int N, int M, int wid>
 class print_row {
+// Prints a row of M multiples of the Nth prime starting from i.
 public:
   typedef if_<is_prime(i,2), print_row<i + 1, N - 1, M, wid>,
                              print_row<i + 1, N, M, wid>> check;
@@ -127,6 +131,7 @@ public:
 
 template <int N, int wid>
 class print_table {
+// Prints a multiplication table of N primes.
 public:
   print_table() {
     if (N) {
@@ -139,10 +144,12 @@ public:
 };
 
 constexpr int width_of(int x) {
+// Compile-time width of integer.
   return (x / 10) ? 1 + width_of(x / 10) : 1;
 }
 
 constexpr int square(int x) {
+// Compile-time square.
   return x * x;
 }
 
