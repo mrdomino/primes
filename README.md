@@ -40,3 +40,18 @@ To clean up:
 `integration-test` is a script that builds and exercises the whole program.
 `big-primes` recompiles and runs `primes-tmpl` with the passed number of
 primes.
+
+## Complexity
+
+Since we are using a relatively fast prime generation algorithm, the O(n^2)
+multiplies required to produce a multiplication table over n items dominate
+asymptotic performance. The prime generator, on the other hand, dominates space
+usage -- it needs O(n log(n log n)) bits of memory to find n primes. In a very
+space-constrained environment, it may be desirable to use a slower prime
+generator that uses less memory.
+
+The static multiplication table generator, on the other hand, is constrained
+only by the system output routines -- it precomputes all the multiples at
+compile time. Of course, the output is still O(n^2), and for even modest n, the
+compilation step takes lots of resources due to usage of less efficient
+algorithms in the metaprogramming implementation.
