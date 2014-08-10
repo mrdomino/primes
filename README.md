@@ -39,7 +39,7 @@ To clean up:
 
 ### Dependencies
 
-A C++ compiler supporting C++11 is required -- clang++ >= 3.4 or g++ >= 4.8
+A C++ compiler supporting C++11 is required: `clang++` >= 3.4 or `g++` >= 4.8
 will do. Additionally, [gtest](https://code.google.com/p/googletest/) is
 required to build and run the unit tests.
 
