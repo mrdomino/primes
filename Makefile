@@ -1,5 +1,6 @@
 CXXFLAGS=-std=c++11 -pedantic -Wall $(DEFINES)
-TESTFLAGS=-lgtest -lgtest_main
+TESTFLAGS=-L. -lpthread -lgtest -lgtest_main
+GTEST_ROOT=/usr/src/gtest
 BIN=primes primes-simple primes-tmpl
 TEST=primes-test print-table-test
 
@@ -37,16 +38,28 @@ primes-tmpl: primes-tmpl.cc
 
 primes: primes.h print-table.h
 
-primes-test: primes-test.cc primes.h
+primes-test: primes-test.cc primes.h libgtest.a libgtest_main.a
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
 
-print-table-test: print-table-test.cc print-table.h
+print-table-test: print-table-test.cc print-table.h libgtest.a libgtest_main.a
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
+
+libgtest.a: $(GTEST_ROOT)/src/gtest-all.cc $(GTEST_ROOT)/src/gtest.h
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $< -c -o $@
+
+libgtest_main.a: $(GTEST_ROOT)/src/gtest_main.cc $(GTEST_ROOT)/src/gtest.h
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $< -c -o $@
 
 clean:
 	@echo cleaning
 	@rm -f $(BIN) $(TEST)
+
+distclean: clean
+	@echo dist cleaning
+	@rm -f libgtest.a libgtest_main.a
 
 .PHONY: all build clean fc options test
