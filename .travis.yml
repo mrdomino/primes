@@ -8,5 +8,4 @@ install:
   - export CXX=g++-4.8
 before_script:
   - ls -l $(which sh)
-  - sh --version
 script: make
