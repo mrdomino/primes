@@ -1,5 +1,7 @@
 # Prime Multiplication Table
 
+[![Build Status](https://travis-ci.org/mrdomino/primes.svg?branch=master)](https://travis-ci.org/mrdomino/primes)
+
 The `primes` program writes a multiplication table of the first 10 prime
 numbers to STDOUT. Optionally, more than 10 primes can be multiplied by passing
 a numeric argument on the command line.
