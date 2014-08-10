@@ -6,9 +6,9 @@ expect_eq() {
   if [ ! x"$expected" = x"$actual" ]
   then
     echo "Expected:"
-    echo "$1"
+    echo "$expected"
     echo "Actual:"
-    echo "$2"
+    echo "$actual"
     echo "[  FAILED  ]"
     exit 1
   else
@@ -38,7 +38,7 @@ make primes >/dev/null 2>&1
 
 expect_eq 11 $(./primes | wc -l)
 
-expect_eq $'  29  58  87 145 203 319 377 493 551 667 841' "$(./primes | tail -n1)"
+expect_eq '  29  58  87 145 203 319 377 493 551 667 841' "$(./primes | tail -n1)"
 
 expect_eq $'   2 3\n 2 4 6\n 3 6 9' "$(./primes 2)"
 
