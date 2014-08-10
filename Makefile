@@ -1,6 +1,5 @@
 CXXFLAGS=-std=c++11 -pedantic -Wall $(DEFINES)
 TESTFLAGS=-lgtest -lgtest_main
-CXX=g++
 BIN=primes primes-simple primes-tmpl
 TEST=primes-test print-table-test
 
