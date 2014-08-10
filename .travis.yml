@@ -8,6 +8,7 @@ before_script:
   - sudo apt-get install cmake libgtest-dev
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then sudo ln -sf /usr/bin/g++{-4.8,}; fi
+  - if [ "$CXX" = "g++" ]; then sudo ln -sf /usr/bin/g++-4.8 /usr/bin/c++; fi
   - if [ "$CXX" = "g++" ]; then sudo ln -sf /usr/bin/gcc{-4.8,}; fi
   - DIRNAME=$(pwd)
   - cd /usr/src/gtest
