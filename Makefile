@@ -62,4 +62,4 @@ distclean: clean
 	@echo dist cleaning
 	@rm -f libgtest.a libgtest_main.a
 
-.PHONY: all build clean fc options test
+.PHONY: all build clean distclean fc options test
