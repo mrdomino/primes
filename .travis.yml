@@ -6,13 +6,18 @@ before_script:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   - sudo apt-get update -qq
   - sudo apt-get install cmake libgtest-dev
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
-  - if [ "$CXX" = "g++" ]; then sudo ln -sf /usr/bin/g++{-4.8,}; fi
-  - if [ "$CXX" = "g++" ]; then sudo ln -sf /usr/bin/g++-4.8 /usr/bin/c++; fi
-  - if [ "$CXX" = "g++" ]; then sudo ln -sf /usr/bin/gcc{-4.8,}; fi
+  - sudo update-alternatives --remove-all gcc
+  - sudo update-alternatives --remove-all g++
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8 gcc-4.3; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc 50; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++ 50; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 50; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --set c++ /usr/bin/g++; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --set cc /usr/bin/gcc; fi
   - DIRNAME=$(pwd)
   - cd /usr/src/gtest
   - sudo cmake CMakeLists.txt
   - sudo make
+  - echo *.a
   - sudo cp *.a /usr/lib
   - cd $DIRNAME
