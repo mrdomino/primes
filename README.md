@@ -35,6 +35,12 @@ To clean up:
 
     make clean
 
+### Dependencies
+
+A C++ compiler supporting C++11 is required -- clang++ >= 3.4 or g++ >= 4.8
+will do. Additionally, [gtest](https://code.google.com/p/googletest/) is
+required to build and run the unit tests.
+
 ## Other files
 
 `integration-test` is a script that builds and exercises the whole program.
