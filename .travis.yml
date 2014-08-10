@@ -10,5 +10,13 @@ install:
   - if [ g++ = "$CXX" ]; then sudo apt-get install -qq g++-4.8 libgtest-dev; fi
   - if [ g++ = "$CXX" ]; then export CXX=g++-4.8; fi
   - if [ clang++ = "$CXX" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.4; fi
+  - if [ clang++ = "$CXX" ]; then svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk libcxx; fi
+  - if [ clang++ = "$CXX" ]; then cd libcxx/lib && bash buildit; fi
+  - if [ clang++ = "$CXX" ]; then sudo cp ./libc++.so.1.0 /usr/lib/; fi
+  - if [ clang++ = "$CXX" ]; then sudo mkdir /usr/include/c++/v1; fi
+  - if [ clang++ = "$CXX" ]; then cd .. && sudo cp -r include/* /usr/include/c++/v1; fi
+  - if [ clang++ = "$CXX" ]; then cd /usr/lib && sudo ln -sf libc++.so.1.0 libc++.so; fi
+  - if [ clang++ = "$CXX" ]; then sudo ln -sf libc++.so.1.0 libc++.so.1 && cd $cwd; fi
   - if [ clang++ = "$CXX" ]; then export CXX=clang++-3.4; fi
+  - if [ clang++ = "$CXX" ]; then export DEFINES=-stdlib=libc++; fi
 script: make
