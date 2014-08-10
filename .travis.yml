@@ -1,11 +1,14 @@
 language: cpp
-compiler: gcc
+compiler:
+  - clang
+  - gcc
 before_install:
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - if [ g++ = "$CXX" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+  - if [ clang++ = "$CXX" ]; then sudo add-apt-repository -y ppa:h-rayflood/llvm; fi
   - sudo apt-get update -qq
 install:
-  - sudo apt-get install -qq g++-4.8 libgtest-dev
-  - export CXX=g++-4.8
-before_script:
-  - ls -l $(which sh)
+  - if [ g++ = "$CXX" ]; then sudo apt-get install -qq g++-4.8 libgtest-dev; fi
+  - if [ g++ = "$CXX" ]; then export CXX=g++-4.8; fi
+  - if [ clang++ = "$CXX" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.4; fi
+  - if [ clang++ = "$CXX" ]; then export CXX=clang++-3.4; fi
 script: make
