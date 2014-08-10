@@ -19,5 +19,5 @@ install:
   - if [ clang++ = "$CXX" ]; then cd /usr/lib && sudo ln -sf libc++.so.1.0 libc++.so; fi
   - if [ clang++ = "$CXX" ]; then sudo ln -sf libc++.so.1.0 libc++.so.1 && cd $cwd; fi
   - if [ clang++ = "$CXX" ]; then export CXX=clang++-3.4; fi
-  - if [ clang++ = "$CXX" ]; then export DEFINES=-stdlib=libc++; fi
+  - if [ clang++ = "$CXX" ]; then export CXXFLAGS="-std=c++11 -stdlib=libc++"; fi
 script: make
