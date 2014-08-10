@@ -46,11 +46,11 @@ print-table-test: print-table-test.cc print-table.h libgtest.a libgtest_main.a
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
 
-libgtest.a: $(GTEST_ROOT)/src/gtest-all.cc $(GTEST_ROOT)/src/gtest.h
+libgtest.a: $(GTEST_ROOT)/src/gtest-all.cc
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $< -c -o $@
 
-libgtest_main.a: $(GTEST_ROOT)/src/gtest_main.cc $(GTEST_ROOT)/src/gtest.h
+libgtest_main.a: $(GTEST_ROOT)/src/gtest_main.cc
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $< -c -o $@
 
