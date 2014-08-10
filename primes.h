@@ -24,7 +24,8 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
   // Assuming the bound on x is tight (i.e. x is the nth prime), this routine
   // is O(x) = O(n log(n log n)).
   //
-  auto primes = std::make_unique<std::vector<size_t>>(n);
+  auto primes =
+    std::unique_ptr<std::vector<size_t>>(new std::vector<size_t>(n));
   // Candidate table size.
   size_t x = std::max<int>(12, ceil(n * log(n * log(n))));
   // table of candidate primes; eliminated[i] is true if i is composite.

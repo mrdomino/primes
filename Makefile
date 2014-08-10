@@ -1,4 +1,4 @@
-CXXFLAGS=-std=c++1y -pedantic -Wall $(DEFINES)
+CXXFLAGS=-std=c++11 -pedantic -Wall $(DEFINES)
 TESTFLAGS=-lgtest -lgtest_main
 CXX=g++
 BIN=primes primes-simple primes-tmpl
