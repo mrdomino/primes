@@ -1,5 +1,5 @@
 CXXFLAGS=-std=c++11 -pedantic -Wall $(DEFINES)
-TESTFLAGS=-L. -lpthread -lgtest -lgtest_main
+TESTFLAGS=-L. -lgtest -lgtest_main -pthread
 GTEST_ROOT=/usr/src/gtest
 BIN=primes primes-simple primes-tmpl
 TEST=primes-test print-table-test
