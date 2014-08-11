@@ -4,6 +4,9 @@ GTEST_ROOT=/usr/src/gtest
 BIN=primes primes-simple primes-tmpl
 TEST=primes-test print-table-test
 
+GTEST_ALL=$(GTEST_ROOT)/src/gtest-all.cc
+GTEST_MAIN=$(GTEST_ROOT)/src/gtest_main.cc
+
 all: options build test fc
 
 options:
@@ -46,13 +49,13 @@ print-table-test: print-table-test.cc print-table.h libgtest.a libgtest_main.a
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
 
-libgtest.a: $(GTEST_ROOT)/src/gtest-all.cc
-	@echo CXX $<
-	@$(CXX) $(CXXFLAGS) -I$(GTEST_ROOT) $< -c -o $@
+libgtest.a: $(GTEST_ALL)
+	@echo CXX $(GTEST_ALL)
+	@$(CXX) $(CXXFLAGS) -I$(GTEST_ROOT) $(GTEST_ALL) -c -o $@
 
-libgtest_main.a: $(GTEST_ROOT)/src/gtest_main.cc
-	@echo CXX $<
-	@$(CXX) $(CXXFLAGS) -I$(GTEST_ROOT) $< -c -o $@
+libgtest_main.a: $(GTEST_MAIN)
+	@echo CXX $(GTEST_MAIN)
+	@$(CXX) $(CXXFLAGS) -I$(GTEST_ROOT) $(GTEST_MAIN) -c -o $@
 
 clean:
 	@echo cleaning
