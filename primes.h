@@ -21,8 +21,10 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
   // deterministically allocate space for up to the 5th prime (11) and rely on
   // that bound for larger primes.
   //
-  // Assuming the bound on x is tight (i.e. x is the nth prime), this routine
-  // is O(x) = O(n log(n log n)).
+  // Assuming the bound x = n log(n log n) is tight (i.e. x is the nth prime),
+  // this routine is O(x) = O(n log(n log n)). If we overguess the bound, then
+  // performance might be better (since we break out of the loop as soon as
+  // we've collected n primes.)
   //
   auto primes =
     std::unique_ptr<std::vector<size_t>>(new std::vector<size_t>(n));
@@ -37,12 +39,10 @@ std::unique_ptr<std::vector<size_t>> primes(size_t n) {
     if (!eliminated.at(i)) {
       // i has not been eliminated yet; it must be prime.
       *nextp++ = i;
-      if (nextp == primes->end()) {
-        break;
-      }
-      // only eliminate factors up to sqrt(x).
+      // only eliminate factors up to sqrt(x); composites with larger factors
+      // must also have smaller factors in the table.
       if (i * i < x) {
-        // eliminate all factors of i in the table.
+        // eliminate all multiples of i in the table.
         for (size_t j = 1; j * i < x; ++j) {
           eliminated.at(j * i) = true;
         }
