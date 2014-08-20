@@ -28,23 +28,23 @@ void print_table(std::ostream& os, std::vector<T> const& v, size_t wid=8) {
   // lower triangle, but this doesn't change the asymptotic performance,
   // so we don't do it in order to save the code complexity.
   //
+  using std::endl;
+  using std::setw;
+
   if (!v.empty()) {
-    os << std::setw(wid) << "";
+    os << setw(wid) << "";
   }
-  std::for_each(v.begin(), v.end(),
-      [&os,wid](T const& x) {
-        os << std::setw(wid) << x;
-      });
-  os << std::endl;
-  std::for_each(v.begin(), v.end(),
-      [&v,&os,wid](T const& x) {
-        os << std::setw(wid) << x;
-        std::for_each(v.begin(), v.end(),
-            [&x,&os,wid](T const& y) {
-              os << std::setw(wid) << x * y;
-            });
-        os << std::endl;
-      });
+  for (auto x : v) {
+    os << setw(wid) << x;
+  }
+  os << endl;
+  for (auto x : v) {
+    os << setw(wid) << x;
+    for (auto y : v) {
+      os << setw(wid) << x * y;
+    }
+    os << endl;
+  }
 }
 
 } // namespace fc
