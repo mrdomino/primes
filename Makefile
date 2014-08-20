@@ -1,7 +1,7 @@
 CXXFLAGS=-std=c++11 -pedantic -Wall $(DEFINES)
 TESTFLAGS=-L. -lgtest -lgtest_main -pthread
 GTEST_ROOT=/usr/src/gtest
-BIN=primes primes-simple primes-tmpl
+BIN=nth-prime primes primes-simple primes-tmpl
 TEST=primes-test print-table-test
 
 GTEST_ALL=$(GTEST_ROOT)/src/gtest-all.cc

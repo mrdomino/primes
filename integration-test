@@ -59,5 +59,9 @@ make primes-tmpl >/dev/null 2>&1
 
 expect_eq "$(./primes)" "$(./primes-tmpl)"
 
+make nth-prime >/dev/null 2>&1
+
+expect_eq 104729 "$(./nth-prime 10000)"
+
 echo
 echo "[  PASSED  ]"
