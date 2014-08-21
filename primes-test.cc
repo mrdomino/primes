@@ -5,17 +5,17 @@ namespace fc {
 
 namespace {
 
-TEST(primes, 0_is_empty) {
+TEST(primes, 0IsEmpty) {
   EXPECT_TRUE(primes(0)->empty());
 }
 
-TEST(primes, 1_is_2) {
+TEST(primes, 1Is2) {
   auto ps = primes(1);
   ASSERT_EQ(1, ps->size());
   EXPECT_EQ(2, ps->at(0));
 }
 
-TEST(primes, first_few_primes_match) {
+TEST(primes, FirstFewPrimesMatch) {
   auto ps = primes(3);
   ASSERT_EQ(3, ps->size());
   EXPECT_EQ(2, ps->at(0));
@@ -28,13 +28,13 @@ TEST(primes, first_few_primes_match) {
   EXPECT_EQ(17, *primes(7)->rbegin());
 }
 
-TEST(primes, 10_is_29) {
+TEST(primes, 10Is29) {
   auto p = primes(10);
   ASSERT_EQ(10, p->size());
   EXPECT_EQ(29, p->at(9));
 }
 
-TEST(primes, large_prime_matches) {
+TEST(primes, LargePrimeMatches) {
   EXPECT_EQ(7919, *primes(1000)->rbegin());
 }
 
