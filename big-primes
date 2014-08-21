@@ -1,6 +1,0 @@
-#!/bin/sh
-echo "See CAUTION disclaimer in primes-tmpl.cc, and press enter to proceed." 1>&2
-read
-rm -f primes-tmpl &&
-  make primes-tmpl DEFINES="-DPRIMES=$@ -ftemplate-depth=100000 -fconstexpr-depth=10000" &&
-  ./primes-tmpl

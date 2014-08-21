@@ -51,14 +51,6 @@ expect_exit_code 2 ./primes -1
 
 expect_exit_code 1 ./primes -
 
-make primes-simple >/dev/null 2>&1
-
-expect_eq "$(./primes)" "$(./primes-simple)"
-
-make primes-tmpl >/dev/null 2>&1
-
-expect_eq "$(./primes)" "$(./primes-tmpl)"
-
 make nth-prime >/dev/null 2>&1
 
 expect_eq 104729 "$(./nth-prime 10000)"
