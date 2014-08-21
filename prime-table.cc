@@ -1,1 +1,0 @@
-#include "prime-table.h"
