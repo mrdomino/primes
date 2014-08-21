@@ -1,3 +1,6 @@
+#ifndef _PRIME_TABLE_H_
+#define _PRIME_TABLE_H_
+
 #include <iostream>
 #include "primes.h"
 #include "print-table.h"
@@ -22,3 +25,5 @@ void primeTable(std::ostream& os, size_t n) {
 }
 
 } // namespace fc
+
+#endif
