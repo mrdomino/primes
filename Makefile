@@ -2,7 +2,7 @@ CXXFLAGS=-std=c++11 -pedantic -Wall $(DEFINES)
 TESTFLAGS=-L. -lgtest -lgtest_main -pthread
 GTEST_ROOT=/usr/src/gtest
 BIN=nth-prime primes
-TEST=primes-test print-table-test
+TEST=primes-test prime-table-test print-table-test
 
 GTEST_ALL=$(GTEST_ROOT)/src/gtest-all.cc
 GTEST_MAIN=$(GTEST_ROOT)/src/gtest_main.cc
@@ -31,6 +31,10 @@ primes: primes.cc
 primes: primes.h print-table.h
 
 primes-test: primes-test.cc primes.h libgtest.a libgtest_main.a
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
+
+prime-table-test: prime-table-test.cc prime-table.h
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $(TESTFLAGS) $< -o $@
 

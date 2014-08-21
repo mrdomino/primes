@@ -3,24 +3,15 @@
 #include <iostream>
 #include <sstream>
 
-#include "primes.h"
-#include "print-table.h"
+#include "prime-table.h"
 
 using boost::bad_lexical_cast;
 using boost::lexical_cast;
-using fc::primes;
-using fc::print_table;
-using fc::width_of;
+using fc::primeTable;
 using std::cerr;
 using std::cout;
 using std::endl;
 using std::exception;
-using std::istringstream;
-
-template <typename T>
-inline T square(T const& x) {
-  return x * x;
-}
 
 void usage(char const* argv0) {
   cout << "usage: " << argv0 << " [n]" << endl
@@ -36,14 +27,7 @@ int main(int argc, char* argv[]) {
   try {
     auto n = (argc == 1) ? 10
       : lexical_cast<size_t>(argv[1]);
-    auto ps = primes(n);
-    if (ps) {
-      auto col_width = 1 + width_of(square(*ps->rbegin()));
-      print_table(cout, *ps, col_width);
-    }
-    else {
-      throw std::runtime_error("Null pointer");
-    }
+    primeTable(cout, n);
   } catch(bad_lexical_cast&) {
     usage(*argv);
   } catch(exception& e) {
