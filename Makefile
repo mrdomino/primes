@@ -24,11 +24,13 @@ test: $(TEST)
 	@echo Running integration test
 	@./integration-test
 
-primes: primes.cc
+nth-prime: nth-prime.cc primes.h
 	@echo CXX $<
 	@$(CXX) $(CXXFLAGS) $< -o $@
 
-primes: primes.h print-table.h
+primes: main.cc prime-table.h print-table.h primes.h
+	@echo CXX $<
+	@$(CXX) $(CXXFLAGS) $< -o $@
 
 primes-test: primes-test.cc primes.h libgtest.a libgtest_main.a
 	@echo CXX $<
