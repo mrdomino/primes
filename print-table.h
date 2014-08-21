@@ -9,7 +9,7 @@
 namespace fc {
 
 template <typename T>
-size_t width_of(T const& n) {
+size_t widthOf(T const& n) {
   std::ostringstream os;
   os << n;
   return os.str().size();
@@ -21,7 +21,7 @@ size_t width_of(T const& n) {
 /// containing the product for the corresponding row and column. wid, if
 /// specified, gives the width of each column.
 template <typename Container>
-void print_table(std::ostream& os, Container const& v, size_t wid=8) {
+void printTable(std::ostream& os, Container const& v, size_t wid=8) {
   // To print a multiplication table of n items requires O(n^2)
   // multiplies. We can reduce this by a constant factor of 1/2 by only
   // doing the upper triangle of multiplications and reusing it for the

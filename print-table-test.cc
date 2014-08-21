@@ -6,30 +6,30 @@ namespace fc {
 
 namespace {
 
-TEST(print_table, prints_nl_on_empty_vector) {
+TEST(printTable, printsNlOnEmptyVector) {
   std::stringstream ss;
 
-  print_table(ss, std::vector<int>());
+  printTable(ss, std::vector<int>());
   EXPECT_EQ("\n", ss.str());
 }
 
-TEST(print_table, prints_0_correctly) {
+TEST(printTable, prints0Correctly) {
   std::stringstream ss;
 
-  print_table(ss, std::vector<int>(1));
+  printTable(ss, std::vector<int>(1));
   EXPECT_EQ(
       "               0\n"
       "       0       0\n",
       ss.str());
 }
 
-TEST(print_table, multiplies_and_formats_elements) {
+TEST(printTable, multipliesAndFormatsElements) {
   std::stringstream ss;
   auto v = std::vector<int>();
   v.push_back(1);
   v.push_back(2);
   v.push_back(3);
-  print_table(ss, v);
+  printTable(ss, v);
   EXPECT_EQ(
       "               1       2       3\n"
       "       1       1       2       3\n"
@@ -38,18 +38,18 @@ TEST(print_table, multiplies_and_formats_elements) {
       ss.str());
 }
 
-TEST(print_table, variable_width) {
+TEST(printTable, variableWidth) {
   std::stringstream ss;
   auto v = std::vector<int>(1);
 
-  print_table(ss, v, 2);
+  printTable(ss, v, 2);
   EXPECT_EQ(
       "   0\n"
       " 0 0\n",
       ss.str());
 
   ss.str("");
-  print_table(ss, v, 0);
+  printTable(ss, v, 0);
   EXPECT_EQ(
       "0\n"
       "00\n",
@@ -57,24 +57,24 @@ TEST(print_table, variable_width) {
 
   ss.str("");
 
-  print_table(ss, v, 3);
+  printTable(ss, v, 3);
   EXPECT_EQ(
       "     0\n"
       "  0  0\n",
       ss.str());
 }
 
-TEST(width_of, 0_is_1) {
-  EXPECT_EQ(1, width_of(0));
+TEST(widthOf, 0Is1) {
+  EXPECT_EQ(1, widthOf(0));
 }
 
-TEST(width_of, n_is_digits_in_n) {
-  EXPECT_EQ(2, width_of(10));
-  EXPECT_EQ(2, width_of(19));
+TEST(widthOf, nIsDigitsInN) {
+  EXPECT_EQ(2, widthOf(10));
+  EXPECT_EQ(2, widthOf(19));
 
-  EXPECT_EQ(4, width_of(1234));
-  EXPECT_EQ(5, width_of(10000));
-  EXPECT_EQ(10, width_of(1999999999));
+  EXPECT_EQ(4, widthOf(1234));
+  EXPECT_EQ(5, widthOf(10000));
+  EXPECT_EQ(10, widthOf(1999999999));
 }
 
 } // namespace

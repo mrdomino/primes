@@ -20,7 +20,7 @@ void primeTable(std::ostream& os, size_t n) {
   if (n > 0) {
     auto ps = primes(n);
     auto biggest = _::square(*ps->rbegin());
-    print_table(os, *ps, 1 + width_of(biggest));
+    printTable(os, *ps, 1 + widthOf(biggest));
   }
 }
 
